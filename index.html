@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="This bookmarklet allows you to easily link to (almost) any text on (almost) any webpage." />
+  <meta name="author" content="https://curiositry.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="MobileOptimized" content="320">
+  <meta name="HandheldFriendly" content="True">
+
+  <title>Bookmarklet to create deeplink to selected text using scroll-to-text fragment</title>
+  
+  <link rel="stylesheet" href="css/tufte.min.css" media="screen" />
+  <!-- <link rel="shortcut icon" href="favicon.png" /> -->
+  <!-- <link rel="apple-touch-icon" href="apple-touch-icon.png" /> -->
+
+</head>
+
+<body>
+  <h1>Bookmarklet: Create Link to Selected Text Fragment</h1>
+  <h2>Deeplink to any text on the web</h2>
+  <br>
+  <p>This bookmarklet allows you to easily link to (almost) any text on (almost) any webpage.</p>
+  <p>
+  <ol>
+    <li><strong>Select some words.</strong> (You have select whole words, sorry.) Selecting areas with funky characters or formatting make it less likely to work. If you need to link to something complicated, use the input fields on this page. To highlight half of a word, you can put “high” as the prefix and “light” as the text.</li>
+  <li><strong>Click the bookmarklet</strong> to generate a link <em>to that text</em> deep down in the middle of an article.</li>
+<li>If you forgot to select text before clicking the bookmarklet, you can select it now.</li>  
+  </ol>
+  </p>
+  <p> 
+  <em>Boom!</em> The page will reload so you can preview the URL and make sure it worked correctly. If possible, the bookmarklet will also put the URL that links directly to the selected text on your clipboard.</p>
+  <p>Drag the bookmarklet to your browser's bookmarks bar:</p>
+  <p>
+   <a id="bookmarklet" href="javascript:%22use%20strict%22;void%20function(){javascript:(function(){function%20a(){let%20a=%22%22;const%20b=document.activeElement,c=b%3Fb.tagName.toLowerCase():null;return%22textarea%22==c||%22input%22==c%26%26/^(%3F:text|search|password|tel|url)$/i.test(b.type)%26%26%22number%22==typeof%20b.selectionStart%3Fa=b.value.slice(b.selectionStart,b.selectionEnd):window.getSelection%26%26(a=window.getSelection().toString()),a}function%20b(){let%20b=encodeURIComponent(a());if(0%3Cb.length){let%20a=c+%22%23:~:text=%22+b;navigator.clipboard.writeText(a).then(()=%3E{console.log(%22URL%20copied%20to%20clipboard:%22,a)}),window.location=a}else%20console.log(%22Selection%20was%20blank,%20please%20select%20some%20text.%22)}let%20c=window.location,d=encodeURIComponent(a());1%3Ed.length%3Fdocument.onmouseup=document.onkeyup=function(){b()}:b()})()}();">
+      Link to Selected Text
+    </a> 
+  </p>  
+  <p>(^^^ Or click it to try it on this page!)</p>
+  <p>
+   Inspired by
+   <a href="">this article</a>.</p>
+  </p>
+  <h2>Go advanced!</h2>
+  <p>For more advanced text-linking, use the widget below:</p>
+  <label for="urlInput">URL</label>
+  <input id="urlInput" title="URL" placeholder="URL" value="https://curiositry.com/text-fragment-linker/">
+  <br>
+  <label for="prefixInput">Prefix (optional)</label>
+  <input id="prefixInput" title="Prefix" placeholder="Prefix (optional)" value="more">
+  <label for="startInput">Start</label>
+  <input id="startInput" title="Start" placeholder="Start">
+  <label for="textInput">Text (if start and end are used this is ignored)</label>
+  <input id="textInput" title="URL" placeholder="Text (if start and end are used this is ignored)" value="advanced">
+  <label for="enddInput">End</label>
+  <input id="endInput" title="End" placeholder="End">
+  <label for="suffixInput">Suffix</label>
+  <input id="suffixInput" title="Suffix" placeholder="Suffix (optional)" value="text">
+  <p>Your link!</p>
+  <p>
+    <a href="https://curiositry.com/text-fragment-linker/#:~:text=more-,advanced,-text" id="output" class="output">https://curiositry.com/text-fragment-linker/#:~:text=more-,advanced,-text</a>
+  </p>
+  <p>Preview (may not work for all sites)</p>
+    <iframe id="preview"></iframe>
+  <script>
+  
+    let url = window.location;
+
+    function update() {
+        console.log("Update function run")
+        let url = document.getElementById("urlInput").value;
+        let prefix = encodeURIComponent(document.getElementById("prefixInput").value);
+        let start = encodeURIComponent(document.getElementById("startInput").value);
+        let text = encodeURIComponent(document.getElementById("textInput").value);
+        let end = encodeURIComponent(document.getElementById("endInput").value);
+        let suffix = encodeURIComponent(document.getElementById("suffixInput").value);
+
+        if (prefix.length > 0) {
+          prefix = prefix+"-,"
+        }
+        
+        if (suffix.length > 0) {
+          suffix = ",-"+suffix
+        }
+        if (start.length > 0) {
+         if (end.length > 0) {
+          text = start + "," + end
+        }
+        }
+        let output = url + "#:~:text=" + prefix + text + suffix;
+
+        document.getElementById("preview").src = output;
+        document.getElementById("output").innerHTML = output;
+        document.getElementById("output").href = output;
+    }
+    
+    const inputFields = document.querySelectorAll('input');
+    inputFields.forEach(function (field) {
+      field.addEventListener('input', function (event) {
+
+        console.log(`Input event triggered in ${field.name}`);
+update();
+      });
+    });
+  </script>
+  <style>
+    iframe,
+    input {
+      width: 100%;
+      display: block;
+      margin: 1rem 0;
+    }
+
+    input {
+      padding: 0.5rem;
+    }
+    iframe {
+      height: 100vh;
+    }
+    #output {
+      font-size: larger;
+      font-weight: 700;
+    }
+    #bookmarklet {
+      font-size: larger;
+      padding: 0.75em 1em 0.5em 1em;
+      margin: 0.5em 0;
+      display: inline-block;
+      background: beige;
+      border: 1px solid grey;
+      border-radius: 0.15rem;
+    }
+  </style>
+</body>
+
+</html>
+
