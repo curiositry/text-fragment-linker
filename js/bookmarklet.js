@@ -91,8 +91,8 @@ function snapSelectionToWord() {
       console.log("Selection was blank, please select some text.")
     }
   }
-  //var interfaceURL = "file:///var/www/text-fragment-deeplink-bookmarklet/index.html"
-  var interfaceURL = "https://curiositry.com/text-fragment-linker/"
+  //var interfaceURL = "file:///var/www/text-fragment-linker/index.html"
+  var interfaceURL = "https://www.curiositry.com/text-fragment-linker/"
   //<!-- var interfaceURL = "google.com" -->
   // <!-- document.onmouseup = document.onkeyup = document.onselectionchange = function() { -->
   //document.onmouseup = document.onkeyup = 
