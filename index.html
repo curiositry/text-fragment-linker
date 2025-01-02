@@ -9,7 +9,7 @@
   <meta name="MobileOptimized" content="320">
   <meta name="HandheldFriendly" content="True">
 
-  <title>🔗 Text Fragment Linker Bookmarklet: create deeplink to selected text using scroll-to-text fragment</title>
+  <title>🔗 Link to selected text bookmarklet: create scroll-to-text fragment links in Firefox in 1 click</title>
   
   <link rel="stylesheet" href="css/tufte.min.css" media="screen" />
   <!-- <link rel="shortcut icon" href="favicon.png" /> -->
@@ -24,24 +24,27 @@
   <p>This bookmarklet allows you to easily link to (almost) any text on (almost) any webpage.</p>
   <p>
   <ol>
-    <li><strong>Select some words.</strong> (You have select whole words, sorry.) Selecting areas with funky characters or formatting makes it less likely to work. If you need to link to something complicated, use the input fields on this page. To highlight half of a word, you can put “high” as the prefix and “light” as the text.</li>
+    <li><strong>Select some words.</strong></li>
   <li><strong>Click the bookmarklet</strong> to generate a link <em>to that text</em> deep down in the middle of an article.</li>
 <li>If you forgot to select text before clicking the bookmarklet, you can select it now.</li>  
   </ol>
   </p>
   <p> 
-  <em>Boom!</em> The page will reload so you can preview the URL and make sure it worked correctly. If possible, the bookmarklet will also put the URL that links directly to the selected text on your clipboard.</p>
+  <em>Boom!</em> The page will reload so you can preview the URL and make sure it worked correctly. If possible, the bookmarklet will also put the URL that links directly to the selected text on your clipboard. </p>
   <p>Drag the bookmarklet to your browser's bookmarks bar:</p>
   <p>
-   <a id="bookmarklet" href="javascript:%22use%20strict%22;void%20function(){javascript:(function(){function%20a(){let%20a=%22%22;const%20b=document.activeElement,c=b%3Fb.tagName.toLowerCase():null;return%22textarea%22==c||%22input%22==c%26%26/^(%3F:text|search|password|tel|url)$/i.test(b.type)%26%26%22number%22==typeof%20b.selectionStart%3Fa=b.value.slice(b.selectionStart,b.selectionEnd):window.getSelection%26%26(a=window.getSelection().toString()),a}function%20b(){let%20b=encodeURIComponent(a());if(0%3Cb.length){let%20a=c+%22%23:~:text=%22+b;navigator.clipboard.writeText(a).then(()=%3E{console.log(%22URL%20copied%20to%20clipboard:%22,a)}),window.location=a}else%20console.log(%22Selection%20was%20blank,%20please%20select%20some%20text.%22)}let%20c=window.location,d=encodeURIComponent(a());1%3Ed.length%3Fdocument.onmouseup=document.onkeyup=function(){b()}:b()})()}();">
+   <a id="bookmarklet" href="javascript:void%20function(){javascript:(function(){function%20a(){var%20a;if(window.getSelection%26%26(a=window.getSelection()).modify){if(a=window.getSelection(),!a.isCollapsed){var%20b=document.createRange();b.setStart(a.anchorNode,a.anchorOffset),b.setEnd(a.focusNode,a.focusOffset);var%20c=b.collapsed;b.detach();var%20d=a.focusNode,e=a.focusOffset;a.collapse(a.anchorNode,a.anchorOffset);var%20f=[];f=c%3F[%22backward%22,%22forward%22]:[%22forward%22,%22backward%22],a.modify(%22move%22,f[0],%22character%22),a.modify(%22move%22,f[1],%22word%22),a.extend(d,e),a.modify(%22extend%22,f[1],%22character%22),a.modify(%22extend%22,f[0],%22word%22)}}else%20if((a=document.selection)%26%26%22Control%22!=a.type){var%20g=a.createRange();if(g.text){for(g.expand(%22word%22);/\s$/.test(g.text);)g.moveEnd(%22character%22,-1);g.select()}}}function%20b(){let%20b=%22%22;const%20c=document.activeElement,d=c%3Fc.tagName.toLowerCase():null;return%22textarea%22==d||%22input%22==d%26%26/^(%3F:text|search|password|tel|url)$/i.test(c.type)%26%26%22number%22==typeof%20c.selectionStart%3F(a(),b=c.value.slice(c.selectionStart,c.selectionEnd)):window.getSelection%26%26(a(),b=window.getSelection().toString()),b}function%20c(){let%20a=encodeURIComponent(b());if(0%3Ca.length){if(0%3C(a.match(/%250A/g)||[]).length){let%20b=a.split(%22%250A%22);a=b[0]+%22,%22+b[b.length-1]}let%20b=d+%22%23:~:text=%22+a;navigator.clipboard.writeText(b).then(()=%3E{console.log(%22URL%20copied%20to%20clipboard:%22,b)}),window.location=b}else%20console.log(%22Selection%20was%20blank,%20please%20select%20some%20text.%22)}let%20d=window.location,e=encodeURIComponent(b());1%3Ee.length%3Fdocument.onmouseup=document.onkeyup=function(){c()}:c()})()}();">
       Link to Selected Text
     </a> 
   </p>  
   <p>(^^^ Or click it to try it on this page!)</p>
-  <p> Inspired by <a href="https://calebhearth.com/text-fragments?ref=https://curiositry.com/text-fragment-linker/">this article</a>. </p>
+  <p> Inspired by <a href="https://calebhearth.com/text-fragments?ref=https://www.curiositry.com/text-fragment-linker/">this article</a>.
+  </p><p>
+   &rArr; If none of this makes sense, read <a href="https://autodidacts.io/scroll-to-text-fragment-bookmarklet/">the announcement post</a> for more confusion.</p>
 
   <h2>Go advanced!</h2>
   <p>For more advanced text-linking, use the widget below:</p>
+  <p><em>Example: to highlight half of a word, you can put “high” in the prefix field and “light” in the text field.</em></p>
   <label for="urlInput">URL</label>
   <input id="urlInput" title="URL" placeholder="URL" value="https://www.curiositry.com/text-fragment-linker/">
   <br>
