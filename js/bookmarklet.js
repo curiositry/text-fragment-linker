@@ -65,13 +65,21 @@ function snapSelectionToWord() {
       snapSelectionToWord();
       text = window.getSelection().toString();
     }
-
     return text;
   }
   
   function updateTextSelector() {
     let selection = encodeURIComponent(getSelectionText());
     if (selection.length > 0) {
+      
+      // URL encoded newlines are common and break text fragments
+      if ((selection.match(/%0A/g) || []).length > 1) {
+        // split selection at newlines, create start and end fragments from first and last new-line separated substrings
+        // this is what chrome seems to do also
+        let substrings = selection.split("%0A");
+        selection = substrings[0]+","+substrings[substrings.length - 1];
+      }
+      
       let output = url + "#:~:text=" + selection //+ start + "," + end;
       // window.location = interfaceURL+"?selection="+selection+"&url="+window.location
       navigator.clipboard.writeText(output).then(() => {
