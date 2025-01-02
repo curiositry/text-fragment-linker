@@ -72,10 +72,10 @@ function snapSelectionToWord() {
     let selection = encodeURIComponent(getSelectionText());
     if (selection.length > 0) {
       
-      // URL encoded newlines are common and break text fragments
-      if ((selection.match(/%0A/g) || []).length > 1) {
-        // split selection at newlines, create start and end fragments from first and last new-line separated substrings
-        // this is what chrome seems to do also
+      // URL encoded newlines are common and break text fragments. 
+      if ((selection.match(/%0A/g) || []).length > 0) {
+        // Split selection at newlines, use first and last new-line separated substrings
+        // as start and end markers. This is what chrome seems to do also.
         let substrings = selection.split("%0A");
         selection = substrings[0]+","+substrings[substrings.length - 1];
       }
