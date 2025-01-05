@@ -81,6 +81,7 @@
 
     function update() {
         console.log("Update function run")
+        let oldurl = document.getElementById("preview").src;
         let url = document.getElementById("urlInput").value;
         let prefix = encodeURIComponent(document.getElementById("prefixInput").value);
         let start = encodeURIComponent(document.getElementById("startInput").value);
@@ -88,6 +89,19 @@
         let end = encodeURIComponent(document.getElementById("endInput").value);
         let suffix = encodeURIComponent(document.getElementById("suffixInput").value);
         let additionalText = document.getElementById("additionalTextInput").value;
+
+        // Clear example selectors if URL isn't to this page, and they haven't been changed
+        // This is because it's easy to miss that those fields are pre-filled, and breaking what 
+        // the user entered in a different field
+        if (url != oldurl) {
+          if (text == "advanced" || prefix == "more") {
+            if (oldurl.includes("curiositry.com") && !url.includes("curiositry.com")) {
+              document.getElementById("textInput").value = "";
+              document.getElementById("prefixInput").value = "";
+              document.getElementById("additionalTextInput").value = "";
+            }
+          }
+        }
 
         if (prefix.length > 0) {
           prefix = prefix+"-,"
