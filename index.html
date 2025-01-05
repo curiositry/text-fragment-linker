@@ -122,8 +122,17 @@
         }
         let output = url + "#:~:text=" + prefix + text + suffix + additionalText;
 
+        // clear previous highlights by fully reloading the iframe
         document.getElementById("preview").src = '';
+
+        // set the iframe to the new url (or the same url, but with new text fragments to highlight)
         document.getElementById("preview").src = output;
+
+        // for very large documents (ie ebooks), it doesn't scroll to text because the text hasn't loaded
+        // so we re-source the iframe once it has loaded in
+        document.getElementById("preview").onload = function() {
+          document.getElementById("preview").src = document.getElementById("preview").src;
+        }
         document.getElementById("output").innerHTML = output;
         document.getElementById("output").href = output;
     }
