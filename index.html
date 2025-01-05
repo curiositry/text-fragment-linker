@@ -62,6 +62,8 @@
   <p>
     <a href="https://www.curiositry.com/text-fragment-linker/#:~:text=more-,advanced,-text" id="output" class="output">https://www.curiositry.com/text-fragment-linker/#:~:text=more-,advanced,-text</a>
   </p>
+  <label for="additionalTextInput">Additional text fragment(s) (optional)</label>
+  <input id="additionalTextInput" title="Additional text fragments" value="widget"> 
   <p>Preview (may not work for all sites)</p>
     <iframe src="https://www.curiositry.com/text-fragment-linker/#:~:text=more-,advanced,-text" id="preview"></iframe>
     <br><hr>
@@ -85,6 +87,7 @@
         let text = encodeURIComponent(document.getElementById("textInput").value);
         let end = encodeURIComponent(document.getElementById("endInput").value);
         let suffix = encodeURIComponent(document.getElementById("suffixInput").value);
+        let additionalText = document.getElementById("additionalTextInput").value;
 
         if (prefix.length > 0) {
           prefix = prefix+"-,"
@@ -97,8 +100,12 @@
          if (end.length > 0) {
           text = start + "," + end
         }
+        if (additionalText.length > 0) {
+          additionalText = "&text="+additionalText;
+        } else {
+          additionalText = "";
         }
-        let output = url + "#:~:text=" + prefix + text + suffix;
+        let output = url + "#:~:text=" + prefix + text + suffix + additionalText;
 
         document.getElementById("preview").src = '';
         document.getElementById("preview").src = output;
